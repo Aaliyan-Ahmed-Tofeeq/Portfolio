@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <title>Aaliyan-Ahmed — Web Developer</title>
+  <meta name="description" content="Full-stack web developer crafting fast, modern digital experiences that convert." />
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js" defer></script>
+
+  <!-- Fonts: Clash Display + DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Phosphor Icons (lightweight SVG icon set) -->
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ░░ LOADER ░░ -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-bar"></div>
+    <span class="loader-label">Loading</span>
+  </div>
+
+  <!-- ░░ CURSOR ░░ -->
+  <div id="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════ -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <a href="#hero" class="nav-logo" aria-label="Home">Aaliyan Developer<span class="accent">.</span></a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-label="Toggle menu">
+      <span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks" role="list">
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+      <li>
+        <a href="#contact" class="nav-cta">
+          Hire Me <i class="ph ph-arrow-up-right"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       01 — HERO
+  ═══════════════════════════════════════ -->
+  <section id="hero" class="hero">
+    <!-- Ambient grid background -->
+    <div class="hero-grid" aria-hidden="true"></div>
+
+    <!-- Floating orbs -->
+    <div class="orb orb--1" aria-hidden="true"></div>
+    <div class="orb orb--2" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <!-- Availability badge -->
+      <div class="availability-badge reveal-up">
+        <span class="badge-dot"></span>
+        Available for new projects
+      </div>
+
+      <h1 class="hero-headline reveal-up" style="--delay:.1s">
+        I build websites<br />
+        that actually<br />
+        <span class="headline-accent">perform.</span>
+      </h1>
+
+      <p class="hero-sub reveal-up" style="--delay:.2s">
+        Full-stack developer crafting <em>fast, conversion-driven</em> digital<br class="br-desktop" />
+        experiences — with precision code and purposeful design.
+      </p>
+
+      <!-- Typing roles -->
+      <div class="hero-roles reveal-up" style="--delay:.3s">
+        <span class="role-prefix">I am a</span>
+        <span class="role-text" id="roleText"></span><span class="role-cursor" aria-hidden="true">|</span>
+      </div>
+
+      <div class="hero-actions reveal-up" style="--delay:.4s">
+        <a href="#projects" class="btn btn--primary">
+          View My Work <i class="ph ph-arrow-down"></i>
+        </a>
+        <a href="#contact" class="btn btn--ghost">
+          Contact Me
+        </a>
+      </div>
+
+      <!-- Stats row -->
+      <div class="hero-stats reveal-up" style="--delay:.5s">
+        <div class="stat">
+          <strong>30+</strong>
+          <span>Projects shipped</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat">
+          <strong>3 yrs</strong>
+          <span>Experience</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat">
+          <strong>100%</strong>
+          <span>Client satisfaction</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <a href="#about" class="scroll-hint reveal-up" style="--delay:.7s" aria-label="Scroll down">
+      <span class="scroll-hint-line"></span>
+      <span class="scroll-hint-label">scroll</span>
+    </a>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       02 — ABOUT
+  ═══════════════════════════════════════ -->
+  <section id="about" class="about section">
+    <div class="container">
+
+      <div class="about-grid">
+
+        <!-- Left — portrait -->
+        <div class="about-visual reveal-left">
+          <div class="portrait-frame">
+            <!-- Placeholder portrait with initials -->
+            <div class="portrait-placeholder" aria-label="Aaliyan Developer photo">
+              <span>AD</span>
+            </div>
+            <div class="portrait-badge">
+              <i class="ph ph-code"></i>
+              <span>Dev since 2022</span>
+            </div>
+          </div>
+          <!-- Decorative floating element -->
+          <div class="about-deco" aria-hidden="true">
+            <div class="deco-card">
+              <i class="ph-fill ph-star"></i>
+              <div>
+                <strong>Top Rated</strong>
+                <small>on Upwork</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right — copy -->
+        <div class="about-copy reveal-right">
+          <div class="section-label">About Me</div>
+          <h2 class="section-title">I turn complex<br />problems into<br /><span class="accent-text">elegant code.</span></h2>
+
+          <p class="about-body">
+            I'm a full-stack developer with 3 years of hands-on experience building products that scale. I care deeply about <strong>performance, accessibility, and clean architecture</strong> — not just making things look good.
+          </p>
+          <p class="about-body">
+            Unlike generalist freelancers, I specialise in <strong>conversion-focused development</strong>: every button placement, load time shaved, and interaction polished directly impacts business results.
+          </p>
+
+          <ul class="about-perks" role="list">
+            <li><i class="ph-fill ph-check-circle"></i> Clean, maintainable, well-documented code</li>
+            <li><i class="ph-fill ph-check-circle"></i> Fast turnarounds with no quality compromise</li>
+            <li><i class="ph-fill ph-check-circle"></i> Clear communication — no jargon, no surprises</li>
+            <li><i class="ph-fill ph-check-circle"></i> End-to-end ownership from design to deployment</li>
+          </ul>
+
+          <div class="about-actions">
+            <a href="#contact" class="btn btn--primary">Work with me</a>
+            <a href="#" class="btn btn--ghost btn--icon" download aria-label="Download Resume">
+              <i class="ph ph-download-simple"></i> Resume
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       03 — PROJECTS
+  ═══════════════════════════════════════ -->
+  <section id="projects" class="projects section">
+    <div class="container">
+
+      <div class="section-header reveal-up">
+        <div class="section-label">Selected Work</div>
+        <h2 class="section-title">Projects that<br /><span class="accent-text">speak results.</span></h2>
+        <p class="section-sub">Real-world solutions built to solve real problems — not just portfolio pieces.</p>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- Project 01 — featured -->
+        <article class="project-card project-card--featured reveal-up" style="--delay:.05s">
+          <div class="project-inner">
+            <div class="project-meta">
+              <span class="project-num">01</span>
+              <div class="project-tags">
+                <span class="tag">html5</span>
+                <span class="tag">Node.js</span>
+                <span class="tag">css</span>
+              </div>
+            </div>
+            <div class="project-mockup" aria-hidden="true">
+              <div class="mockup-screen">
+                <div class="mockup-bar"></div>
+                <div class="mockup-content">
+                  <div class="m-line m-line--wide"></div>
+                  <div class="m-line"></div>
+                  <div class="m-row">
+                    <div class="m-card"></div>
+                    <div class="m-card"></div>
+                    <div class="m-card"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-info">
+              <h3 class="project-title">ShopSwiftE-Commerce Platform</h3>
+              <p class="project-desc">
+                A merchant needed a custom storefront that outperformed their Shopify setup. Built a headless commerce solution with 40% faster page loads and a custom checkout flow that increased conversion rate by 22%.
+              </p>
+              <div class="project-links">
+                <a href="https://aaliyan-ahmed-tofeeq.github.io/Store-Sample/" class="project-link project-link--primary" target="_blank" rel="noopener">
+                  Live Demo <i class="ph ph-arrow-up-right"></i>
+                </a>
+                <a href="https://github.com/Aaliyan-Ahmed-Tofeeq/Store-Sample" class="project-link project-link--ghost" target="_blank" rel="noopener">
+                  <i class="ph ph-github-logo"></i> GitHub
+                </a>
+              </div
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 02 -->
+        <article class="project-card reveal-up" style="--delay:.1s">
+          <div class="project-inner">
+            <div class="project-meta">
+              <span class="project-num">02</span>
+              <div class="project-tags">
+                <span class="tag">Next.js</span>
+                <span class="tag">Prisma</span>
+                <span class="tag">Tailwind</span>
+              </div>
+            </div>
+            <div class="project-mockup project-mockup--sm" aria-hidden="true">
+              <div class="mockup-screen">
+                <div class="mockup-bar"></div>
+                <div class="mockup-content">
+                  <div class="m-sidebar"></div>
+                  <div class="m-main">
+                    <div class="m-line m-line--wide"></div>
+                    <div class="m-line"></div>
+                    <div class="m-line m-line--short"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-info">
+              <h3 class="project-title">Iron forge — GYM-website</h3>
+              <p class="project-desc">
+                This is a modern, responsive landing page designed for a high-energy fitness center. The goal of the project was to create a seamless user experience that encourages potential members to sign up while providing current members with easy access to class schedules.
+              </p>
+              <div class="project-links">
+                <a href="https://aaliyan-ahmed-tofeeq.github.io/GYM-sample/" class="project-link project-link--primary" target="_blank" rel="noopener">
+                  Live Demo <i class="ph ph-arrow-up-right"></i>
+                </a>
+                <a href="https://github.com/Aaliyan-Ahmed-Tofeeq/GYM-sample" class="project-link project-link--ghost" target="_blank" rel="noopener">
+                  <i class="ph ph-github-logo"></i> GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+
+
+      </div><!-- /projects-grid -->
+
+      <div class="projects-footer reveal-up">
+        <a href="https://github.com/Aaliyan-Ahmed-Tofeeq" class="btn btn--ghost" target="_blank" rel="noopener">
+          <i class="ph ph-github-logo"></i> View all on GitHub
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       04 — SKILLS
+  ═══════════════════════════════════════ -->
+  <section id="skills" class="skills section">
+    <div class="container">
+
+      <div class="section-header reveal-up">
+        <div class="section-label">Expertise</div>
+        <h2 class="section-title">Tools I use to<br /><span class="accent-text">build the future.</span></h2>
+      </div>
+
+      <div class="skills-grid">
+
+        <!-- Category: Frontend -->
+        <div class="skill-group reveal-up" style="--delay:.05s">
+          <div class="skill-group-header">
+            <i class="ph ph-browser"></i>
+            <h3>Frontend</h3>
+          </div>
+          <ul class="skill-list" role="list">
+            <li class="skill-item">
+              <span class="skill-name">React / Next.js</span>
+              <div class="skill-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-fill" style="--pct:95%"></div>
+              </div>
+              <span class="skill-pct">95%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">TypeScript</span>
+              <div class="skill-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-fill" style="--pct:90%"></div>
+              </div>
+              <span class="skill-pct">90%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Vue / Nuxt</span>
+              <div class="skill-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-fill" style="--pct:80%"></div>
+              </div>
+              <span class="skill-pct">80%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">CSS / Animations</span>
+              <div class="skill-bar" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-fill" style="--pct:92%"></div>
+              </div>
+              <span class="skill-pct">92%</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Category: Backend -->
+        <div class="skill-group reveal-up" style="--delay:.1s">
+          <div class="skill-group-header">
+            <i class="ph ph-database"></i>
+            <h3>Backend</h3>
+          </div>
+          <ul class="skill-list" role="list">
+            <li class="skill-item">
+              <span class="skill-name">Node.js / Express</span>
+              <div class="skill-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-fill" style="--pct:90%"></div>
+              </div>
+              <span class="skill-pct">90%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">PostgreSQL / MySQL</span>
+              <div class="skill-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-fill" style="--pct:85%"></div>
+              </div>
+              <span class="skill-pct">85%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">REST / GraphQL</span>
+              <div class="skill-bar" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-fill" style="--pct:88%"></div>
+              </div>
+              <span class="skill-pct">88%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Redis / Caching</span>
+              <div class="skill-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-fill" style="--pct:75%"></div>
+              </div>
+              <span class="skill-pct">75%</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Category: Tools & Cloud -->
+        <div class="skill-group reveal-up" style="--delay:.15s">
+          <div class="skill-group-header">
+            <i class="ph ph-cloud"></i>
+            <h3>Tools & Cloud</h3>
+          </div>
+          <ul class="skill-list" role="list">
+            <li class="skill-item">
+              <span class="skill-name">Docker / CI-CD</span>
+              <div class="skill-bar" role="progressbar" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-fill" style="--pct:82%"></div>
+              </div>
+              <span class="skill-pct">82%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">AWS / Vercel</span>
+              <div class="skill-bar" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-fill" style="--pct:78%"></div>
+              </div>
+              <span class="skill-pct">78%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Git / GitHub</span>
+              <div class="skill-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-fill" style="--pct:95%"></div>
+              </div>
+              <span class="skill-pct">95%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Figma / Design</span>
+              <div class="skill-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                <div class="skill-fill" style="--pct:70%"></div>
+              </div>
+              <span class="skill-pct">70%</span>
+            </li>
+          </ul>
+        </div>
+
+      </div><!-- /skills-grid -->
+
+      <!-- Tech pill cloud -->
+      <div class="tech-cloud reveal-up">
+        <span class="tech-pill">JavaScript</span>
+        <span class="tech-pill">TypeScript</span>
+        <span class="tech-pill">React</span>
+        <span class="tech-pill">Next.js</span>
+        <span class="tech-pill">Vue</span>
+        <span class="tech-pill">Node.js</span>
+        <span class="tech-pill">Express</span>
+        <span class="tech-pill">PostgreSQL</span>
+        <span class="tech-pill">MongoDB</span>
+        <span class="tech-pill">Redis</span>
+        <span class="tech-pill">Docker</span>
+        <span class="tech-pill">AWS</span>
+        <span class="tech-pill">Vercel</span>
+        <span class="tech-pill">Prisma</span>
+        <span class="tech-pill">GraphQL</span>
+        <span class="tech-pill">Tailwind CSS</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       05 — CONTACT
+  ═══════════════════════════════════════ -->
+  <section id="contact" class="contact section">
+    <div class="container">
+
+      <div class="contact-grid">
+
+        <!-- Left — CTA -->
+        <div class="contact-info reveal-left">
+          <div class="section-label">Get In Touch</div>
+          <h2 class="section-title">Let's build<br />something<br /><span class="accent-text">great together.</span></h2>
+          <p class="contact-body">
+            I'm currently available for freelance projects and full-time opportunities. Have an idea? Let's talk.
+          </p>
+
+          <div class="contact-channels">
+            <a href="mailto:aliyan2731a@gmail.com" class="contact-channel">
+              <div class="channel-icon"><i class="ph ph-envelope-simple"></i></div>
+              <div class="channel-info">
+                <span class="channel-label">Email</span>
+                <span class="channel-value">aliyan2731a@gmail.com</span>
+              </div>
+              <i class="ph ph-arrow-up-right channel-arrow"></i>
+            </a>
+            <a href="https://wa.me/923454105434" class="contact-channel" target="_blank" rel="noopener">
+              <div class="channel-icon"><i class="ph ph-whatsapp-logo"></i></div>
+              <div class="channel-info">
+                <span class="channel-label">WhatsApp</span>
+                <span class="channel-value">+92 3454105434</span>
+              </div>
+              <i class="ph ph-arrow-up-right channel-arrow"></i>
+            </a>
+            <a href="https://linkedin.com" class="contact-channel" target="_blank" rel="noopener">
+              <div class="channel-icon"><i class="ph ph-linkedin-logo"></i></div>
+              <div class="channel-info">
+                <span class="channel-label">LinkedIn</span>
+                <span class="channel-value">linkedin.com/in/aliyan_developer</span>
+              </div>
+              <i class="ph ph-arrow-up-right channel-arrow"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right — form -->
+        <div class="contact-form-wrap reveal-right">
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="John Smith" required autocomplete="name" />
+                <span class="form-error" id="nameError"></span>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="john@example.com" required autocomplete="email" />
+                <span class="form-error" id="emailError"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="Project inquiry / collaboration / etc." />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell me about your project, timeline, and budget..." required></textarea>
+              <span class="form-error" id="messageError"></span>
+            </div>
+            <button type="submit" class="btn btn--primary btn--full" id="submitBtn">
+              <span class="btn-label">Send Message</span>
+              <i class="ph ph-paper-plane-tilt"></i>
+            </button>
+            <p class="form-success" id="formSuccess" aria-live="polite"></p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="#hero" class="footer-logo" aria-label="Back to top">AD<span class="accent">.</span></a>
+
+        <p class="footer-copy">
+          Designed &amp; built by Aaliyan Developer &mdash; &copy; <span id="year"></span>
+        </p>
+
+        <div class="footer-social">
+          <a href="https://github.com/Aaliyan-Ahmed-Tofeeq" target="_blank" rel="noopener" aria-label="GitHub">
+            <i class="ph ph-github-logo"></i>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <i class="ph ph-linkedin-logo"></i>
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter / X">
+            <i class="ph ph-x-logo"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
