@@ -1,317 +1,523 @@
 /* ═══════════════════════════════════════════════════════════
-   ALEX MERCER — PORTFOLIO
-   script.js  |  Interactions, animations, utilities
-   ─────────────────────────────────────────────────────────── */
+   Aaliyan Developer — PORTFOLIO
+   script.js
+═══════════════════════════════════════════════════════════ */
 
 'use strict';
 
 /* ── Loader ─────────────────────────────────────────────── */
 window.addEventListener('load', () => {
   const loader = document.getElementById('loader');
+
   if (!loader) return;
-  // Small delay so the bar animation is visible at least once
-  setTimeout(() => loader.classList.add('hidden'), 800);
+
+  setTimeout(() => {
+    loader.classList.add('hidden');
+  }, 800);
 });
 
 
 /* ── Custom Cursor ──────────────────────────────────────── */
 (function initCursor() {
-  const dot  = document.getElementById('cursor-dot');
+
+  const dot = document.getElementById('cursor-dot');
   const ring = document.getElementById('cursor-ring');
+
   if (!dot || !ring) return;
 
-  let ringX = 0, ringY = 0;
-  let mouseX = 0, mouseY = 0;
-  let raf;
+  let mouseX = 0;
+  let mouseY = 0;
+
+  let ringX = 0;
+  let ringY = 0;
 
   document.addEventListener('mousemove', (e) => {
+
     mouseX = e.clientX;
     mouseY = e.clientY;
-    // Dot follows instantly
-    dot.style.left = mouseX + 'px';
-    dot.style.top  = mouseY + 'px';
+
+    dot.style.left = `${mouseX}px`;
+    dot.style.top = `${mouseY}px`;
+
   });
 
-  // Ring follows with lag
-  function movRing() {
+  function animateRing() {
+
     ringX += (mouseX - ringX) * 0.12;
     ringY += (mouseY - ringY) * 0.12;
-    ring.style.left = ringX + 'px';
-    ring.style.top  = ringY + 'px';
-    raf = requestAnimationFrame(movRing);
-  }
-  movRing();
 
-  // Enlarge ring on interactive elements
-  const hoverEls = document.querySelectorAll('a, button, [role="button"], input, textarea, .project-card, .tech-pill');
-  hoverEls.forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    ring.style.left = `${ringX}px`;
+    ring.style.top = `${ringY}px`;
+
+    requestAnimationFrame(animateRing);
+  }
+
+  animateRing();
+
+  const hoverElements = document.querySelectorAll(
+    'a, button, input, textarea, .project-card, .tech-pill'
+  );
+
+  hoverElements.forEach(el => {
+
+    el.addEventListener('mouseenter', () => {
+      document.body.classList.add('cursor-hover');
+    });
+
+    el.addEventListener('mouseleave', () => {
+      document.body.classList.remove('cursor-hover');
+    });
+
   });
+
 })();
 
 
-/* ── Sticky Navbar ──────────────────────────────────────── */
+/* ── Sticky Navbar ─────────────────────────────────────── */
 (function initNavbar() {
+
   const nav = document.getElementById('navbar');
+
   if (!nav) return;
 
-  let lastY = 0;
+  function handleScroll() {
 
-  const onScroll = () => {
-    const y = window.scrollY;
-    nav.classList.toggle('scrolled', y > 20);
-    lastY = y;
-  };
+    nav.classList.toggle('scrolled', window.scrollY > 20);
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  }
+
+  window.addEventListener('scroll', handleScroll, {
+    passive: true
+  });
+
+  handleScroll();
+
 })();
 
 
-/* ── Mobile Nav Toggle ──────────────────────────────────── */
+/* ── Mobile Nav ─────────────────────────────────────────── */
 (function initMobileNav() {
+
   const toggle = document.getElementById('navToggle');
-  const links  = document.getElementById('navLinks');
+  const links = document.getElementById('navLinks');
+
   if (!toggle || !links) return;
 
   toggle.addEventListener('click', () => {
+
     const isOpen = links.classList.toggle('open');
+
     toggle.setAttribute('aria-expanded', isOpen);
+
   });
 
-  // Close on link click
   links.querySelectorAll('.nav-link, .nav-cta').forEach(link => {
+
     link.addEventListener('click', () => {
+
       links.classList.remove('open');
       toggle.setAttribute('aria-expanded', 'false');
+
     });
+
   });
+
 })();
 
 
-/* ── Active Nav Link Highlight ──────────────────────────── */
+/* ── Active Nav Links ───────────────────────────────────── */
 (function initActiveLinks() {
-  const sections  = document.querySelectorAll('section[id]');
-  const navLinks  = document.querySelectorAll('.nav-link');
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
 
   const observer = new IntersectionObserver((entries) => {
+
     entries.forEach(entry => {
+
       if (entry.isIntersecting) {
+
         navLinks.forEach(link => {
-          const href = link.getAttribute('href').replace('#', '');
-          link.classList.toggle('active', href === entry.target.id);
-        });
-      }
-    });
-  }, { rootMargin: '-40% 0px -55% 0px' });
 
-  sections.forEach(s => observer.observe(s));
+          const href = link.getAttribute('href').replace('#', '');
+
+          link.classList.toggle(
+            'active',
+            href === entry.target.id
+          );
+
+        });
+
+      }
+
+    });
+
+  }, {
+    rootMargin: '-40% 0px -55% 0px'
+  });
+
+  sections.forEach(section => observer.observe(section));
+
 })();
 
 
-/* ── Scroll Reveal ──────────────────────────────────────── */
+/* ── Scroll Reveal ─────────────────────────────────────── */
 (function initReveal() {
-  const els = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
+
+  const elements = document.querySelectorAll(
+    '.reveal-up, .reveal-left, .reveal-right'
+  );
 
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
 
-  els.forEach(el => observer.observe(el));
+    entries.forEach(entry => {
+
+      if (entry.isIntersecting) {
+
+        entry.target.classList.add('revealed');
+
+        observer.unobserve(entry.target);
+
+      }
+
+    });
+
+  }, {
+    threshold: 0.12
+  });
+
+  elements.forEach(el => observer.observe(el));
+
 })();
 
 
-/* ── Typing Animation ───────────────────────────────────── */
+/* ── Typing Animation ──────────────────────────────────── */
 (function initTyping() {
-  const el = document.getElementById('roleText');
-  if (!el) return;
 
-  const roles = ['Developer', 'Designer', 'Problem Solver', 'Full-Stack Engineer', 'Open Source Contributor'];
-  let roleIdx  = 0;
-  let charIdx  = 0;
+  const roleText = document.getElementById('roleText');
+
+  if (!roleText) return;
+
+  const roles = [
+    'Frontend Developer',
+    'UI Engineer',
+    'Creative Coder',
+    'Freelancer'
+  ];
+
+  let roleIndex = 0;
+  let charIndex = 0;
   let deleting = false;
-  let pausing  = false;
 
   function type() {
-    const current = roles[roleIdx];
 
-    if (pausing) return;
+    const currentRole = roles[roleIndex];
 
     if (!deleting) {
-      charIdx++;
-      el.textContent = current.slice(0, charIdx);
 
-      if (charIdx === current.length) {
-        // Pause at full word
-        pausing = true;
-        setTimeout(() => {
-          pausing  = false;
-          deleting = true;
-          tick();
-        }, 1800);
+      roleText.textContent =
+        currentRole.slice(0, charIndex++);
+
+      if (charIndex > currentRole.length) {
+
+        deleting = true;
+
+        setTimeout(type, 1400);
+
         return;
       }
-    } else {
-      charIdx--;
-      el.textContent = current.slice(0, charIdx);
 
-      if (charIdx === 0) {
-        deleting  = false;
-        roleIdx   = (roleIdx + 1) % roles.length;
+    } else {
+
+      roleText.textContent =
+        currentRole.slice(0, charIndex--);
+
+      if (charIndex < 0) {
+
+        deleting = false;
+        roleIndex = (roleIndex + 1) % roles.length;
+
       }
+
     }
 
-    tick();
+    setTimeout(type, deleting ? 45 : 90);
+
   }
 
-  function tick() {
-    const speed = deleting ? 45 : 90;
-    setTimeout(type, speed);
-  }
+  type();
 
-  tick();
 })();
 
 
-/* ── Skill Bar Animation ────────────────────────────────── */
+/* ── Skill Bars ─────────────────────────────────────────── */
 (function initSkillBars() {
+
   const bars = document.querySelectorAll('.skill-fill');
 
   const observer = new IntersectionObserver((entries) => {
+
     entries.forEach(entry => {
+
       if (entry.isIntersecting) {
+
         const fill = entry.target;
-        fill.style.width = fill.style.getPropertyValue('--pct');
+
+        fill.style.width =
+          fill.style.getPropertyValue('--pct');
+
         observer.unobserve(fill);
+
       }
+
     });
-  }, { threshold: 0.3 });
+
+  }, {
+    threshold: 0.3
+  });
 
   bars.forEach(bar => observer.observe(bar));
+
 })();
 
 
-/* ── Contact Form Validation ────────────────────────────── */
+/* ── Contact Form ───────────────────────────────────────── */
 (function initContactForm() {
-  const form       = document.getElementById('contactForm');
+
+  const form = document.getElementById('contactForm');
+
   if (!form) return;
 
-  const nameInput    = form.querySelector('#name');
-  const emailInput   = form.querySelector('#email');
-  const messageInput = form.querySelector('#message');
-  const submitBtn    = form.querySelector('#submitBtn');
-  const successMsg   = form.querySelector('#formSuccess');
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const subjectInput = document.getElementById('subject');
+  const messageInput = document.getElementById('message');
 
-  const nameError    = document.getElementById('nameError');
-  const emailError   = document.getElementById('emailError');
+  const submitBtn = document.getElementById('submitBtn');
+
+  const successMsg = document.getElementById('formSuccess');
+
+  const nameError = document.getElementById('nameError');
+  const emailError = document.getElementById('emailError');
   const messageError = document.getElementById('messageError');
 
+
   function validate(input, errorEl, testFn, msg) {
-    const ok = testFn(input.value.trim());
-    input.classList.toggle('error', !ok);
-    errorEl.textContent = ok ? '' : msg;
-    return ok;
+
+    const isValid = testFn(input.value.trim());
+
+    input.classList.toggle('error', !isValid);
+
+    errorEl.textContent = isValid ? '' : msg;
+
+    return isValid;
+
   }
 
-  function isEmail(val) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+
+  function isEmail(value) {
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
   }
+
 
   form.addEventListener('submit', async (e) => {
+
     e.preventDefault();
 
-    const okName    = validate(nameInput,    nameError,    v => v.length >= 2,    'Please enter your name.');
-    const okEmail   = validate(emailInput,   emailError,   v => isEmail(v),       'Please enter a valid email.');
-    const okMessage = validate(messageInput, messageError, v => v.length >= 10,   'Message must be at least 10 characters.');
+    const okName = validate(
+      nameInput,
+      nameError,
+      v => v.length >= 2,
+      'Please enter your name.'
+    );
+
+    const okEmail = validate(
+      emailInput,
+      emailError,
+      isEmail,
+      'Please enter a valid email.'
+    );
+
+    const okMessage = validate(
+      messageInput,
+      messageError,
+      v => v.length >= 10,
+      'Message must be at least 10 characters.'
+    );
 
     if (!okName || !okEmail || !okMessage) return;
 
-    // Simulate send (replace with your actual endpoint)
+
     submitBtn.disabled = true;
+
     const label = submitBtn.querySelector('.btn-label');
-    const origLabel = label.textContent;
-    label.textContent = 'Sending…';
 
-    await new Promise(r => setTimeout(r, 1400));
+    const originalText = label.textContent;
 
-    successMsg.textContent = '✓ Message sent! I\'ll get back to you within 24 hours.';
+    label.textContent = 'Sending...';
+
+    await new Promise(resolve => setTimeout(resolve, 1200));
+
+
+    const whatsappNumber = '923454105434';
+
+    const draftMessage =
+`😊 *Hello Aaliyan Developer,*
+
+👤 *Name:* ${nameInput.value.trim()}
+📧 *Email:* ${emailInput.value.trim()}
+📌 *Subject:* ${subjectInput.value.trim() || 'General Inquiry'}
+
+💬 *Message:*
+${messageInput.value.trim()}
+
+✨ Looking forward to discussing this project with you.`;
+
+    const whatsappURL =
+      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(draftMessage)}`;
+
+    window.open(whatsappURL, '_blank');
+
+
+    successMsg.textContent =
+      '✓ Message prepared successfully.';
+
     form.reset();
-    label.textContent = origLabel;
+
+    label.textContent = originalText;
+
     submitBtn.disabled = false;
 
-    // Clear success message after 6s
-    setTimeout(() => { successMsg.textContent = ''; }, 6000);
+    setTimeout(() => {
+      successMsg.textContent = '';
+    }, 5000);
+
   });
 
-  // Live validation on blur
+
   [nameInput, emailInput, messageInput].forEach(input => {
-    input.addEventListener('blur', () => input.classList.remove('error'));
-  });
-})();
 
-
-/* ── Smooth Scroll for anchor links ─────────────────────── */
-(function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      const href = anchor.getAttribute('href');
-      if (href === '#') return;
-      const target = document.querySelector(href);
-      if (!target) return;
-      e.preventDefault();
-      const navH = document.getElementById('navbar')?.offsetHeight || 68;
-      const top  = target.getBoundingClientRect().top + window.scrollY - navH;
-      window.scrollTo({ top, behavior: 'smooth' });
+    input.addEventListener('input', () => {
+      input.classList.remove('error');
     });
+
   });
+
 })();
 
 
-/* ── Parallax orbs (subtle) ─────────────────────────────── */
+/* ── Smooth Scroll ─────────────────────────────────────── */
+(function initSmoothScroll() {
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+
+    anchor.addEventListener('click', (e) => {
+
+      const href = anchor.getAttribute('href');
+
+      if (href === '#') return;
+
+      const target = document.querySelector(href);
+
+      if (!target) return;
+
+      e.preventDefault();
+
+      const navHeight =
+        document.getElementById('navbar')?.offsetHeight || 70;
+
+      const top =
+        target.getBoundingClientRect().top +
+        window.scrollY -
+        navHeight;
+
+      window.scrollTo({
+        top,
+        behavior: 'smooth'
+      });
+
+    });
+
+  });
+
+})();
+
+
+/* ── Parallax Orbs ─────────────────────────────────────── */
 (function initParallax() {
+
   const orb1 = document.querySelector('.orb--1');
   const orb2 = document.querySelector('.orb--2');
+
   if (!orb1 || !orb2) return;
 
   window.addEventListener('scroll', () => {
+
     const y = window.scrollY;
-    orb1.style.transform = `translateY(${y * 0.12}px)`;
-    orb2.style.transform = `translateY(${-y * 0.08}px)`;
-  }, { passive: true });
+
+    orb1.style.transform =
+      `translateY(${y * 0.12}px)`;
+
+    orb2.style.transform =
+      `translateY(${-y * 0.08}px)`;
+
+  }, {
+    passive: true
+  });
+
 })();
 
 
-/* ── Footer year ────────────────────────────────────────── */
-const yearEl = document.getElementById('year');
-if (yearEl) yearEl.textContent = new Date().getFullYear();
+/* ── Footer Year ───────────────────────────────────────── */
+(function initFooterYear() {
+
+  const yearEl = document.getElementById('year');
+
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+
+})();
 
 
-/* ── Project card tilt on hover (desktop) ───────────────── */
+/* ── Project Card Tilt ─────────────────────────────────── */
 (function initCardTilt() {
-  if (window.matchMedia('(hover: none)').matches) return;   // skip touch
+
+  if (window.matchMedia('(hover: none)').matches) return;
 
   const cards = document.querySelectorAll('.project-card');
 
   cards.forEach(card => {
+
     card.addEventListener('mousemove', (e) => {
-      const rect   = card.getBoundingClientRect();
-      const cx     = rect.left + rect.width  / 2;
-      const cy     = rect.top  + rect.height / 2;
-      const dx     = (e.clientX - cx) / (rect.width  / 2);
-      const dy     = (e.clientY - cy) / (rect.height / 2);
-      const tiltX  = dy * -4;
-      const tiltY  = dx *  4;
-      card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-4px)`;
+
+      const rect = card.getBoundingClientRect();
+
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const rotateY =
+        ((e.clientX - centerX) / rect.width) * 10;
+
+      const rotateX =
+        ((centerY - e.clientY) / rect.height) * 10;
+
+      card.style.transform =
+        `perspective(1000px)
+         rotateX(${rotateX}deg)
+         rotateY(${rotateY}deg)
+         translateY(-6px)`;
+
     });
 
     card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
+
+      card.style.transform =
+        'perspective(1000px) rotateX(0) rotateY(0)';
+
     });
+
   });
-})();
+
