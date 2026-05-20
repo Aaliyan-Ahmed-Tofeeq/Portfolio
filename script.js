@@ -1,14 +1,8 @@
-/* ═══════════════════════════════════════════════════════════
-   Aaliyan Developer — PORTFOLIO
-   script.js
-═══════════════════════════════════════════════════════════ */
-
 'use strict';
 
 /* ── Loader ─────────────────────────────────────────────── */
 window.addEventListener('load', () => {
   const loader = document.getElementById('loader');
-
   if (!loader) return;
 
   setTimeout(() => {
@@ -28,21 +22,18 @@ window.addEventListener('load', () => {
   let mouseX = 0;
   let mouseY = 0;
 
-  let ringX = 0;
-  let ringY = 0;
+  let ringX = window.innerWidth / 2;
+  let ringY = window.innerHeight / 2;
 
   document.addEventListener('mousemove', (e) => {
-
     mouseX = e.clientX;
     mouseY = e.clientY;
 
     dot.style.left = `${mouseX}px`;
     dot.style.top = `${mouseY}px`;
-
   });
 
   function animateRing() {
-
     ringX += (mouseX - ringX) * 0.12;
     ringY += (mouseY - ringY) * 0.12;
 
@@ -59,7 +50,6 @@ window.addEventListener('load', () => {
   );
 
   hoverElements.forEach(el => {
-
     el.addEventListener('mouseenter', () => {
       document.body.classList.add('cursor-hover');
     });
@@ -67,7 +57,6 @@ window.addEventListener('load', () => {
     el.addEventListener('mouseleave', () => {
       document.body.classList.remove('cursor-hover');
     });
-
   });
 
 })();
@@ -77,19 +66,13 @@ window.addEventListener('load', () => {
 (function initNavbar() {
 
   const nav = document.getElementById('navbar');
-
   if (!nav) return;
 
   function handleScroll() {
-
     nav.classList.toggle('scrolled', window.scrollY > 20);
-
   }
 
-  window.addEventListener('scroll', handleScroll, {
-    passive: true
-  });
-
+  window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
 
 })();
@@ -104,22 +87,15 @@ window.addEventListener('load', () => {
   if (!toggle || !links) return;
 
   toggle.addEventListener('click', () => {
-
     const isOpen = links.classList.toggle('open');
-
     toggle.setAttribute('aria-expanded', isOpen);
-
   });
 
   links.querySelectorAll('.nav-link, .nav-cta').forEach(link => {
-
     link.addEventListener('click', () => {
-
       links.classList.remove('open');
       toggle.setAttribute('aria-expanded', 'false');
-
     });
-
   });
 
 })();
@@ -134,21 +110,21 @@ window.addEventListener('load', () => {
   const observer = new IntersectionObserver((entries) => {
 
     entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
 
-      if (entry.isIntersecting) {
+      navLinks.forEach(link => {
 
-        navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (!href) return;
 
-          const href = link.getAttribute('href').replace('#', '');
+        const id = href.replace('#', '');
 
-          link.classList.toggle(
-            'active',
-            href === entry.target.id
-          );
+        link.classList.toggle(
+          'active',
+          id === entry.target.id
+        );
 
-        });
-
-      }
+      });
 
     });
 
@@ -171,15 +147,10 @@ window.addEventListener('load', () => {
   const observer = new IntersectionObserver((entries) => {
 
     entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
 
-      if (entry.isIntersecting) {
-
-        entry.target.classList.add('revealed');
-
-        observer.unobserve(entry.target);
-
-      }
-
+      entry.target.classList.add('revealed');
+      observer.unobserve(entry.target);
     });
 
   }, {
@@ -195,7 +166,6 @@ window.addEventListener('load', () => {
 (function initTyping() {
 
   const roleText = document.getElementById('roleText');
-
   if (!roleText) return;
 
   const roles = [
@@ -215,34 +185,25 @@ window.addEventListener('load', () => {
 
     if (!deleting) {
 
-      roleText.textContent =
-        currentRole.slice(0, charIndex++);
-
+      roleText.textContent = currentRole.slice(0, charIndex++);
       if (charIndex > currentRole.length) {
-
         deleting = true;
-
         setTimeout(type, 1400);
-
         return;
       }
 
     } else {
 
-      roleText.textContent =
-        currentRole.slice(0, charIndex--);
+      roleText.textContent = currentRole.slice(0, charIndex--);
 
       if (charIndex < 0) {
-
         deleting = false;
         roleIndex = (roleIndex + 1) % roles.length;
-
+        charIndex = 0;
       }
-
     }
 
     setTimeout(type, deleting ? 45 : 90);
-
   }
 
   type();
@@ -258,18 +219,13 @@ window.addEventListener('load', () => {
   const observer = new IntersectionObserver((entries) => {
 
     entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
 
-      if (entry.isIntersecting) {
+      const fill = entry.target;
+      const pct = fill.style.getPropertyValue('--pct') || '0%';
 
-        const fill = entry.target;
-
-        fill.style.width =
-          fill.style.getPropertyValue('--pct');
-
-        observer.unobserve(fill);
-
-      }
-
+      fill.style.width = pct;
+      observer.unobserve(fill);
     });
 
   }, {
@@ -285,7 +241,6 @@ window.addEventListener('load', () => {
 (function initContactForm() {
 
   const form = document.getElementById('contactForm');
-
   if (!form) return;
 
   const nameInput = document.getElementById('name');
@@ -294,115 +249,93 @@ window.addEventListener('load', () => {
   const messageInput = document.getElementById('message');
 
   const submitBtn = document.getElementById('submitBtn');
-
   const successMsg = document.getElementById('formSuccess');
 
   const nameError = document.getElementById('nameError');
   const emailError = document.getElementById('emailError');
   const messageError = document.getElementById('messageError');
 
+  if (!nameInput || !emailInput || !messageInput || !submitBtn) return;
 
   function validate(input, errorEl, testFn, msg) {
+    if (!input || !errorEl) return false;
 
     const isValid = testFn(input.value.trim());
 
     input.classList.toggle('error', !isValid);
-
     errorEl.textContent = isValid ? '' : msg;
 
     return isValid;
-
   }
-
 
   function isEmail(value) {
-
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-
   }
 
-
   form.addEventListener('submit', async (e) => {
-
     e.preventDefault();
 
-    const okName = validate(
-      nameInput,
-      nameError,
-      v => v.length >= 2,
-      'Please enter your name.'
-    );
-
-    const okEmail = validate(
-      emailInput,
-      emailError,
-      isEmail,
-      'Please enter a valid email.'
-    );
-
-    const okMessage = validate(
-      messageInput,
-      messageError,
-      v => v.length >= 10,
-      'Message must be at least 10 characters.'
-    );
+    const okName = validate(nameInput, nameError, v => v.length >= 2, 'Please enter your name.');
+    const okEmail = validate(emailInput, emailError, isEmail, 'Please enter a valid email.');
+    const okMessage = validate(messageInput, messageError, v => v.length >= 10, 'Message must be at least 10 characters.');
 
     if (!okName || !okEmail || !okMessage) return;
-
 
     submitBtn.disabled = true;
 
     const label = submitBtn.querySelector('.btn-label');
+    const originalText = label?.textContent || 'Send';
 
-    const originalText = label.textContent;
-
-    label.textContent = 'Sending...';
+    if (label) label.textContent = 'Sending...';
 
     await new Promise(resolve => setTimeout(resolve, 1200));
 
-
     const whatsappNumber = '923454105434';
+
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const subject = subjectInput?.value?.trim() || '';
+    const message = messageInput.value.trim();
 
     const draftMessage =
 `😊 *Hello Aaliyan Developer,*
 
-👤 *Name:* ${nameInput.value.trim()}
-📧 *Email:* ${emailInput.value.trim()}
-📌 *Subject:* ${subjectInput.value.trim() || 'General Inquiry'}
+👤 *Name:* ${name}
+📧 *Email:* ${email}
+📌 *Subject:* ${subject || 'General Inquiry'}
 
 💬 *Message:*
-${messageInput.value.trim()}
+${message}
 
 ✨ Looking forward to discussing this project with you.`;
 
     const whatsappURL =
-      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(draftMessage)}`;
+      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(draftMessage.slice(0, 900))}`;
 
     window.open(whatsappURL, '_blank');
 
-
-    successMsg.textContent =
-      '✓ Message prepared successfully.';
+    if (successMsg) {
+      successMsg.textContent = '✓ Message prepared successfully.';
+    }
 
     form.reset();
 
-    label.textContent = originalText;
+    if (label) label.textContent = originalText;
 
     submitBtn.disabled = false;
 
     setTimeout(() => {
-      successMsg.textContent = '';
+      if (successMsg) successMsg.textContent = '';
     }, 5000);
 
   });
 
-
   [nameInput, emailInput, messageInput].forEach(input => {
+    if (!input) return;
 
     input.addEventListener('input', () => {
       input.classList.remove('error');
     });
-
   });
 
 })();
@@ -416,11 +349,9 @@ ${messageInput.value.trim()}
     anchor.addEventListener('click', (e) => {
 
       const href = anchor.getAttribute('href');
-
-      if (href === '#') return;
+      if (!href || href === '#') return;
 
       const target = document.querySelector(href);
-
       if (!target) return;
 
       e.preventDefault();
@@ -457,15 +388,10 @@ ${messageInput.value.trim()}
 
     const y = window.scrollY;
 
-    orb1.style.transform =
-      `translateY(${y * 0.12}px)`;
+    orb1.style.transform = `translateY(${y * 0.12}px)`;
+    orb2.style.transform = `translateY(${-y * 0.08}px)`;
 
-    orb2.style.transform =
-      `translateY(${-y * 0.08}px)`;
-
-  }, {
-    passive: true
-  });
+  }, { passive: true });
 
 })();
 
@@ -474,7 +400,6 @@ ${messageInput.value.trim()}
 (function initFooterYear() {
 
   const yearEl = document.getElementById('year');
-
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
@@ -513,10 +438,8 @@ ${messageInput.value.trim()}
     });
 
     card.addEventListener('mouseleave', () => {
-
       card.style.transform =
         'perspective(1000px) rotateX(0) rotateY(0)';
-
     });
 
   });
