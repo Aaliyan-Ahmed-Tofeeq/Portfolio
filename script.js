@@ -521,3 +521,4 @@ ${messageInput.value.trim()}
 
   });
 
+})();
